@@ -55,7 +55,7 @@ class Sem {
     if (type == TypeOfSub.T0) {
       s.name = '${dept.name.toString()}$sem${num}0';
     } else if (type == TypeOfSub.L) {
-      s.name = '';
+      s.name = '${dept.name.toString()}${sem}${num}L';
     } else if (type == TypeOfSub.OX) {
       s.name = 'OE - $num';
     } else if (type == TypeOfSub.HU) {
