@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gpa_cal/class/data_class.dart';
 import 'package:confetti/confetti.dart';
@@ -101,6 +98,154 @@ class _ResultsScreenState extends State<ResultsScreen> {
         break;
       }
     }
+    List<Widget> mainChild() {
+      return [
+        SizedBox(
+          height: (MediaQuery.of(context).size.width >
+                  MediaQuery.of(context).size.height)
+              ? MediaQuery.of(context).size.height
+              : MediaQuery.of(context).size.height * 0.5,
+          width: (MediaQuery.of(context).size.width >
+                  MediaQuery.of(context).size.height)
+              ? MediaQuery.of(context).size.width * 0.5
+              : MediaQuery.of(context).size.width,
+          child: Center(
+            child: InkWell(
+              onTap: () {
+                showAdaptiveDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text("GPA"),
+                    content: Text(
+                      "Your GPA is ${gpa.toStringAsFixed(2)}",
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("OK"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          saveSem();
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Save"),
+                      )
+                    ],
+                  ),
+                );
+              },
+              borderRadius: BorderRadius.all(
+                Radius.circular(130.0),
+              ),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: CircularPercentIndicator(
+                    radius: 130.0,
+                    animation: true,
+                    animationDuration: 1200,
+                    lineWidth: 15.0,
+                    percent: gpa / 10,
+                    center: Text(
+                      "GPA : ${gpa.toStringAsFixed(2)}",
+                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                            color: Colors.white,
+                          ),
+                    ),
+                    circularStrokeCap: CircularStrokeCap.round,
+                    backgroundColor: bgColor.withOpacity(0.5),
+                    progressColor: Colors.white70,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            height: (MediaQuery.of(context).size.width >
+                    MediaQuery.of(context).size.height)
+                ? MediaQuery.of(context).size.height
+                : MediaQuery.of(context).size.height * 0.5,
+            width: (MediaQuery.of(context).size.width >
+                    MediaQuery.of(context).size.height)
+                ? MediaQuery.of(context).size.width * 0.5
+                : MediaQuery.of(context).size.height,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: MediaQuery.of(context).size.width >
+                        MediaQuery.of(context).size.height
+                    ? Radius.circular(0)
+                    : Radius.circular(30),
+                bottomLeft: MediaQuery.of(context).size.width >
+                        MediaQuery.of(context).size.height
+                    ? Radius.circular(30)
+                    : Radius.circular(0),
+              ),
+              gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).colorScheme.background.withOpacity(0.4),
+                  Theme.of(context).colorScheme.background,
+                ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+              ),
+            ),
+            padding: const EdgeInsets.all(15),
+            child: Table(
+              border: TableBorder.all(
+                color: bgColor,
+              ),
+              children: [
+                TableRow(
+                  decoration: BoxDecoration(
+                    color: bgColor,
+                  ),
+                  children: [
+                    Text(
+                      'Subject',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                    ),
+                    Text(
+                      'Grade',
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                            color: Theme.of(context).colorScheme.onPrimary,
+                          ),
+                    ),
+                  ],
+                ),
+                for (var sub in sem.subjects)
+                  TableRow(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onSecondary,
+                    ),
+                    children: [
+                      Text(
+                        sub.name,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        sub.grade!.name,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ];
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Results"),
@@ -146,146 +291,17 @@ class _ResultsScreenState extends State<ResultsScreen> {
         child: Stack(
           children: [
             Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    child: Center(
-                      child: InkWell(
-                        onTap: () {
-                          showAdaptiveDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text("GPA"),
-                              content: Text(
-                                "Your GPA is ${gpa.toStringAsFixed(2)}",
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("OK"),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    saveSem();
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("Save"),
-                                )
-                              ],
-                            ),
-                          );
-                        },
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(130.0),
-                        ),
-                        child: CircularPercentIndicator(
-                          radius: 130.0,
-                          animation: true,
-                          animationDuration: 1200,
-                          lineWidth: 15.0,
-                          percent: gpa / 10,
-                          center: Text(
-                            "GPA : ${gpa.toStringAsFixed(2)}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displaySmall!
-                                .copyWith(
-                                  color: Colors.white,
-                                ),
-                          ),
-                          circularStrokeCap: CircularStrokeCap.round,
-                          backgroundColor: bgColor.withOpacity(0.5),
-                          progressColor: Colors.white70,
-                        ),
-                      ),
+              child: MediaQuery.of(context).orientation == Orientation.portrait
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: mainChild(),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: mainChild(),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(30),
-                          topRight: Radius.circular(30),
-                        ),
-                        gradient: LinearGradient(
-                          colors: [
-                            Theme.of(context)
-                                .colorScheme
-                                .background
-                                .withOpacity(0.4),
-                            Theme.of(context).colorScheme.background,
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(15),
-                      child: Table(
-                        border: TableBorder.all(
-                          color: bgColor,
-                        ),
-                        children: [
-                          TableRow(
-                            decoration: BoxDecoration(
-                              color: bgColor,
-                            ),
-                            children: [
-                              Text(
-                                'Subject',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                    ),
-                              ),
-                              Text(
-                                'Grade',
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onPrimary,
-                                    ),
-                              ),
-                            ],
-                          ),
-                          for (var sub in sem.subjects)
-                            TableRow(
-                              decoration: BoxDecoration(
-                                color:
-                                    Theme.of(context).colorScheme.onSecondary,
-                              ),
-                              children: [
-                                Text(
-                                  sub.name,
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  sub.grade!.name,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
             Container(
               alignment: Alignment.topCenter,

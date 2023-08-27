@@ -148,6 +148,11 @@ class _IPScreenState extends State<IPScreen> {
                           },
                         );
                       },
+                      width: MediaQuery.of(context).size.width *
+                          (MediaQuery.of(context).size.width >
+                                  MediaQuery.of(context).size.height
+                              ? 0.4
+                              : 0.6),
                     ),
                   ],
                 ),

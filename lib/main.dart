@@ -9,7 +9,9 @@ void main() async {
   Hive.registerAdapter(SaveSemAdapter());
   await Hive.openBox('sem');
 
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

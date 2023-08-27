@@ -78,7 +78,11 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     },
                   );
                 },
-                width: MediaQuery.of(context).size.width * 0.75,
+                width: MediaQuery.of(context).size.width *
+                    (MediaQuery.of(context).size.width >
+                            MediaQuery.of(context).size.height
+                        ? 0.5
+                        : 0.75),
               ),
             ),
             Padding(
@@ -110,7 +114,11 @@ class _SelectionScreenState extends State<SelectionScreen> {
                   flagSem = false;
                 },
                 errorText: errorTextSem,
-                width: MediaQuery.of(context).size.width * 0.75,
+                width: MediaQuery.of(context).size.width *
+                    (MediaQuery.of(context).size.width >
+                            MediaQuery.of(context).size.height
+                        ? 0.5
+                        : 0.75),
                 label: const Text("Select Semester"),
               ),
             ),
