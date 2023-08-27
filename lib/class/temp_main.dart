@@ -6,7 +6,6 @@ Sem createSem(Dept dept, int semno) {
     dept: dept,
     sem: semno,
     totalCredits: semData[semno]!.credits,
-    totalSubjects: semData[semno]!.subjects,
   );
   if (semno == 1) {
     for (var sub in phyCycle) {

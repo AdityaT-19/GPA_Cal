@@ -55,7 +55,7 @@ class _AddGPAState extends State<AddGPA> {
                 label: 'Chemistry Cycle',
                 value: 2,
               ),
-              for (int i = 3; i <= 4; i++)
+              for (int i = 3; i <= 8; i++)
                 DropdownMenuEntry(
                   label: 'Semester $i',
                   value: i,

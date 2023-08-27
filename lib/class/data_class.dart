@@ -27,9 +27,11 @@ enum Grade {
 enum TypeOfSub {
   T0,
   L,
-  X,
+  OX,
+  PX,
   HU,
   MA,
+  P,
 }
 
 class Sem {
@@ -37,12 +39,10 @@ class Sem {
     required this.dept,
     required this.sem,
     required this.totalCredits,
-    required this.totalSubjects,
   });
   final int sem;
   final Dept dept;
   final int totalCredits;
-  final int totalSubjects;
   List<Sub> subjects = [];
   Sub createSub(double credits, int num, TypeOfSub type, [Dept? dept]) {
     dept ??= this.dept;
@@ -55,13 +55,17 @@ class Sem {
     if (type == TypeOfSub.T0) {
       s.name = '${dept.name.toString()}$sem${num}0';
     } else if (type == TypeOfSub.L) {
-      s.name = '${dept.name.toString()}${sem}${num}L';
-    } else if (type == TypeOfSub.X) {
-      s.name = '${dept.name.toString()}${sem}${num}X';
+      s.name = '';
+    } else if (type == TypeOfSub.OX) {
+      s.name = 'OE - $num';
     } else if (type == TypeOfSub.HU) {
       s.name = 'HU${sem}1X';
     } else if (type == TypeOfSub.MA) {
       s.name = 'MA${sem}1X';
+    } else if (type == TypeOfSub.PX) {
+      s.name = 'PE - $num';
+    } else if (type == TypeOfSub.P) {
+      s.name = '${dept.name.toString()}${sem}${num}P';
     }
     return s;
   }
