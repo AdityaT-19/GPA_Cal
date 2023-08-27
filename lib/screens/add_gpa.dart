@@ -31,78 +31,85 @@ class _AddGPAState extends State<AddGPA> {
     } else {
       errorTextGPA = null;
     }
-    return SizedBox(
-      height: double.infinity,
-      width: double.infinity,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15),
-              child: Text(
-                'Add GPA',
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
-              ),
-            ),
-            DropdownMenu<int>(
-              controller: _SemController,
-              enableFilter: true,
-              dropdownMenuEntries: [
-                const DropdownMenuEntry(
-                  label: 'Physics Cycle',
-                  value: 1,
-                ),
-                const DropdownMenuEntry(
-                  label: 'Chemistry Cycle',
-                  value: 2,
-                ),
-                for (int i = 3; i <= 4; i++)
-                  DropdownMenuEntry(
-                    label: 'Semester $i',
-                    value: i,
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: Text(
+              'Add GPA',
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
                   ),
-              ],
-              onSelected: (value) {
-                setState(() {
-                  _sem = value;
-                  flagSem = false;
-                });
-              },
-              errorText: errorTextSem,
-              width: MediaQuery.of(context).size.width * 0.75,
-              label: const Text("Select Semester"),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.1,
-                vertical: MediaQuery.of(context).size.height * 0.03,
+          ),
+          DropdownMenu<int>(
+            controller: _SemController,
+            enableFilter: true,
+            dropdownMenuEntries: [
+              const DropdownMenuEntry(
+                label: 'Physics Cycle',
+                value: 1,
               ),
-              child: TextField(
-                controller: _GPAController,
-                keyboardType: TextInputType.number,
-                maxLength: 4,
-                decoration: InputDecoration(
-                  labelText: 'GPA',
-                  errorText: errorTextGPA,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              const DropdownMenuEntry(
+                label: 'Chemistry Cycle',
+                value: 2,
+              ),
+              for (int i = 3; i <= 4; i++)
+                DropdownMenuEntry(
+                  label: 'Semester $i',
+                  value: i,
                 ),
-                onChanged: (value) {
-                  double? val = double.tryParse(value);
+            ],
+            onSelected: (value) {
+              setState(() {
+                _sem = value;
+                flagSem = false;
+              });
+            },
+            errorText: errorTextSem,
+            width: MediaQuery.of(context).size.width *
+                (MediaQuery.of(context).size.width >
+                        MediaQuery.of(context).size.height
+                    ? 0.5
+                    : 0.75),
+            label: const Text("Select Semester"),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width * 0.1,
+              vertical: MediaQuery.of(context).size.height * 0.03,
+            ),
+            child: TextField(
+              controller: _GPAController,
+              keyboardType: TextInputType.number,
+              maxLength: 4,
+              decoration: InputDecoration(
+                labelText: 'GPA',
+                errorText: errorTextGPA,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onChanged: (value) {
+                double? val = double.tryParse(value);
+
+                if (val != null && val > 0 && val <= 10) {
                   _gpa = val;
-                  if (_gpa == null) {
-                    flagGPA = true;
-                  } else {
-                    flagGPA = false;
-                  }
-                },
-              ),
+                } else {
+                  _gpa = null;
+                }
+                if (_gpa == null) {
+                  flagGPA = true;
+                } else {
+                  flagGPA = false;
+                }
+              },
             ),
-            FilledButton.icon(
-              onPressed: () {
+          ),
+          FilledButton.icon(
+            onPressed: () {
+              setState(() {
                 if (_sem == null) {
                   flagSem = true;
                 }
@@ -114,14 +121,16 @@ class _AddGPAState extends State<AddGPA> {
                   _SemController.clear();
 
                   widget.addSemester(_sem!, _gpa!);
+                  _gpa = null;
+                  _sem = null;
                   Navigator.of(context).pop();
                 }
-              },
-              icon: const Icon(Icons.add_box_outlined),
-              label: const Text('Add'),
-            ),
-          ],
-        ),
+              });
+            },
+            icon: const Icon(Icons.add_box_outlined),
+            label: const Text('Add'),
+          ),
+        ],
       ),
     );
   }

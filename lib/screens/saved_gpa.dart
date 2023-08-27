@@ -89,6 +89,15 @@ class _SavedGPAState extends State<SavedGPA> {
                           box.clear();
                         });
                         Navigator.of(ctx).pop();
+                        ScaffoldMessenger.of(context).clearSnackBars();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            duration: Duration(seconds: 1),
+                            content: Text(
+                              'All saved GPA deleted',
+                            ),
+                          ),
+                        );
                       },
                       child: Text(
                         'Delete',
@@ -110,7 +119,7 @@ class _SavedGPAState extends State<SavedGPA> {
             onPressed: () {
               setState(() {
                 showModalBottomSheet(
-                  useSafeArea: true,
+                  isScrollControlled: true,
                   backgroundColor:
                       Theme.of(context).colorScheme.primaryContainer,
                   context: context,
@@ -170,7 +179,11 @@ class _SavedGPAState extends State<SavedGPA> {
                         child: Card(
                           child: ListTile(
                             title: Text(
-                              'Semester ${sem.semno}',
+                              sem.semno == 1
+                                  ? 'Physics Cycle'
+                                  : sem.semno == 2
+                                      ? 'Chemistry Cycle'
+                                      : 'Semester ${sem.semno}',
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
@@ -188,7 +201,6 @@ class _SavedGPAState extends State<SavedGPA> {
                     },
                   ),
                 ),
-                const Spacer(),
                 Container(
                   alignment: Alignment.bottomCenter,
                   margin: EdgeInsets.symmetric(
