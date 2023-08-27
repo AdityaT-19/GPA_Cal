@@ -305,12 +305,12 @@ const List<({int num, TypeOfSub type, double credits})> sem5CSIS = [
     credits: 4,
   ),
   (
-    num: 5,
+    num: 1,
     type: TypeOfSub.PX,
     credits: 3,
   ),
   (
-    num: 6,
+    num: 1,
     type: TypeOfSub.OX,
     credits: 3,
   ),
@@ -342,17 +342,17 @@ const List<({int num, TypeOfSub type, double credits})> sem6CS = [
     credits: 4,
   ),
   (
-    num: 4,
+    num: 2,
     type: TypeOfSub.PX,
     credits: 3,
   ),
   (
-    num: 5,
+    num: 2,
     type: TypeOfSub.OX,
     credits: 3,
   ),
   (
-    num: 6,
+    num: 3,
     type: TypeOfSub.OX,
     credits: 3,
   ),
@@ -389,17 +389,17 @@ const List<({int num, TypeOfSub type, double credits})> sem6IS = [
     credits: 3,
   ),
   (
-    num: 4,
+    num: 2,
     type: TypeOfSub.PX,
     credits: 3,
   ),
   (
-    num: 5,
+    num: 2,
     type: TypeOfSub.OX,
     credits: 3,
   ),
   (
-    num: 6,
+    num: 3,
     type: TypeOfSub.OX,
     credits: 3,
   ),
@@ -419,6 +419,60 @@ const List<({int num, TypeOfSub type, double credits})> sem6IS = [
     credits: 1.5,
   ),
 ];
+const List<({int num, TypeOfSub type, double credits})> sem7 = [
+  (
+    num: 1,
+    type: TypeOfSub.T0,
+    credits: 4,
+  ),
+  (
+    num: 3,
+    type: TypeOfSub.PX,
+    credits: 3,
+  ),
+  (
+    num: 4,
+    type: TypeOfSub.PX,
+    credits: 3,
+  ),
+  (
+    num: 4,
+    type: TypeOfSub.OX,
+    credits: 3,
+  ),
+  (
+    num: 5,
+    type: TypeOfSub.OX,
+    credits: 3,
+  ),
+  (
+    num: 6,
+    type: TypeOfSub.P,
+    credits: 2,
+  ),
+  (
+    num: 7,
+    type: TypeOfSub.P,
+    credits: 1,
+  ),
+];
+const List<({int num, TypeOfSub type, double credits})> sem8 = [
+  (
+    num: 5,
+    type: TypeOfSub.PX,
+    credits: 3,
+  ),
+  (
+    num: 6,
+    type: TypeOfSub.PX,
+    credits: 3,
+  ),
+  (
+    num: 3,
+    type: TypeOfSub.P,
+    credits: 10,
+  ),
+];
 const Map<Dept, Map<int, List<({int num, TypeOfSub type, double credits})>>>
     subjects = {
   Dept.CS: {
@@ -426,29 +480,39 @@ const Map<Dept, Map<int, List<({int num, TypeOfSub type, double credits})>>>
     4: sem4CSIS,
     5: sem5CSIS,
     6: sem6CS,
+    7: sem7,
+    8: sem8,
   },
   Dept.IS: {
     3: sem3CSIS,
     4: sem4CSIS,
     5: sem5CSIS,
     6: sem6IS,
+    7: sem7,
+    8: sem8,
   },
   Dept.EC: {
     3: sem3EC,
     4: sem4EC,
     5: sem5CSIS,
     6: sem6IS,
+    7: sem7,
+    8: sem8,
   },
   Dept.EI: {
     3: sem3CSIS,
     4: sem4CSIS,
     5: sem5CSIS,
     6: sem6IS,
+    7: sem7,
+    8: sem8,
   },
   Dept.BT: {
     3: sem4CSIS,
     4: sem3CSIS,
     5: sem5CSIS,
     6: sem6IS,
+    7: sem7,
+    8: sem8,
   },
 };

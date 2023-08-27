@@ -99,7 +99,7 @@ class _SelectionScreenState extends State<SelectionScreen> {
                     label: 'Chemistry Cycle',
                     value: 2,
                   ),
-                  for (int i = 3; i <= 6; i++)
+                  for (int i = 3; i <= 8; i++)
                     DropdownMenuEntry(
                       label: 'Semester $i',
                       value: i,
