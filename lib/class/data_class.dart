@@ -107,9 +107,9 @@ class Sub {
     } else if (grade == Grade.C) {
       return 7 * credits;
     } else if (grade == Grade.D) {
-      return 6 * credits;
-    } else if (grade == Grade.E) {
       return 5 * credits;
+    } else if (grade == Grade.E) {
+      return 4 * credits;
     } else {
       return 0;
     }
